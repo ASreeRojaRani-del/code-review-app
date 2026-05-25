@@ -1,0 +1,160 @@
+{
+  "_version": "1.84.0",
+  "sap.app": {
+    "id": "codereviewui",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:lrop",
+      "version": "1.24.0",
+      "toolsId": "0630a446-243d-4db4-889b-df30e0067de2"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/odata/v4/code/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "odataVersion": "4.01"
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.147.2",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.fe.templates": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "codereviewui.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      },
+      "@i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "uri": "i18n/i18n.properties"
+      }
+    },
+    "resources": {
+      "css": []
+    },
+    "routing": {
+      "config": {},
+      "routes": [
+        {
+          "pattern": ":?query:",
+          "name": "CodeReviewList",
+          "target": "CodeReviewList"
+        },
+        {
+          "pattern": "CodeReview({key}):?query:",
+          "name": "CodeReviewObjectPage",
+          "target": "CodeReviewObjectPage"
+        }
+      ],
+      "targets": {
+        "CodeReviewList": {
+          "type": "Component",
+          "id": "CodeReviewList",
+          "name": "sap.fe.templates.ListReport",
+          "options": {
+            "settings": {
+              "initialLoad": "Enabled",
+              "contextPath": "/CodeReview",
+              "variantManagement": "Page",
+              "navigation": {
+                "CodeReview": {
+                  "detail": {
+                    "route": "CodeReviewObjectPage"
+                  }
+                }
+              },
+              "controlConfiguration": {
+                "@com.sap.vocabularies.UI.v1.LineItem": {
+                  "tableSettings": {
+                    "type": "ResponsiveTable"
+                  },
+                  "actions": {
+                    "sourceCodeAction": {
+                      "id": "sourceCodeActionBtn",
+                      "text": "Show Source Code",
+                      "press": "codereviewui.ext.controller.SourceCode.onSourceCodeActionPress",
+                      "requiresSelection": true
+                    }
+                  }
+                },
+                "results/findings/@com.sap.vocabularies.UI.v1.LineItem": {
+                  "tableSettings": {
+                    "type": "GridTable"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "CodeReviewObjectPage": {
+          "type": "Component",
+          "id": "CodeReviewObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "editableHeaderContent": false,
+              "contextPath": "/CodeReview"
+            }
+          }
+        }
+      }
+    },
+    "sap.fiori": {
+      "registrationIds": [],
+      "archeType": "transactional"
+    },
+    "sap.fe": {
+      "app": {
+        "enableLazyLoading": true
+      }
+    }
+  }
+}

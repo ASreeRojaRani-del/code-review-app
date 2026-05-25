@@ -1,0 +1,2 @@
+sap.ui.define(["sap/ui/core/Fragment"],o=>{"use strict";const e="sourceCodeDialog";const i="codereviewui.ext.view.SourceCode";return{async onSourceCodeActionPress(t,a){const s=a?.[0]?decodeURIComponent(atob(a[0].getObject().FullSourceCode)):"";if(!this.pDialog){this.pDialog=o.load({id:e,name:i})}const c=await this.pDialog;const n=sap.ui.core.Fragment.byId(e,"sourceCodeDialog_text0");n.setValue(s||"No source code available.");c.open()},async onCloseDialog(){if(!this.pDialog)return;const o=await this.pDialog;o.close()}}});
+//# sourceMappingURL=SourceCode.js.map

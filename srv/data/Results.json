@@ -1,0 +1,41 @@
+{
+    "results": [
+        {
+            "objectName": "ZCL_PROG_SOURCE_QRY",
+            "objectType": "CDS_VIEW",
+            "overallRating": "NOT_ACCEPTABLE",
+            "criticalIssues": 0,
+            "majorIssues": 2,
+            "minorIssues": 1,
+            "findings": [
+                {
+                    "ruleId": "CDSMODEL002",
+                    "category": "CDS Modeling",
+                    "severity": "MAJOR",
+                    "objectType": "CDS_VIEW",
+                    "objectName": "ZCL_PROG_SOURCE_QRY",
+                    "location": "View definition",
+                    "issue": "Authorization handling is not implemented using DCL despite containing sensitive customer data",
+                    "recommendation": "Implement proper authorization controls using DCL (Data Control Language) and change @AccessControl.authorizationCheck to #CHECK or #CONTROL"
+                },
+                {
+                    "ruleId": "CDSMODEL003",
+                    "category": "CDS Modeling",
+                    "severity": "MINOR",
+                    "objectType": "CDS_VIEW",
+                    "objectName": "ZCL_PROG_SOURCE_QRY",
+                    "location": "Annotations",
+                    "issue": "Annotations lack proper documentation and may not be fully meaningful",
+                    "recommendation": "Add more descriptive documentation to the @EndUserText.label annotation and consider adding additional relevant annotations like @UI.selectionField or @UI.lineItem"
+                }
+            ]
+        },
+        {"objectName": "ZFORM_DATA",
+            "objectType": "PROG",
+            "overallRating": "NOT_ACCEPTABLE",
+            "criticalIssues": 0,
+            "majorIssues": 3,
+            "minorIssues": 0
+        }
+    ]
+}
