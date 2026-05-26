@@ -1,10 +1,5 @@
-sap.ui.define(
-  ["sap/ui/core/Fragment"],
-  (Fragment) => {
+sap.ui.define( () => {
     "use strict";
-
-    const DLG_ID   = "sourceCodeDialog";
-    const DLG_NAME = "codereviewui.ext.view.SourceCode";
 
     return {
       async onSourceCodeActionPress(_, aSelectedContexts) {
@@ -12,29 +7,29 @@ sap.ui.define(
           ? decodeURIComponent(atob(aSelectedContexts[0].getObject().FullSourceCode)) : "";
 
         if (!this.pDialog) {
-          this.pDialog = Fragment.load({
-            id: DLG_ID,
-            name: DLG_NAME
+
+          var oTextArea = new sap.m.TextArea({
+            width: "100%",
+            rows: 80,
+            editable: false,
+            value: sSourceCode || "No source code available."
           });
+
+          this.pDialog = new sap.m.Dialog({
+            title: "Source Code",
+            type: "Message",
+            contentWidth: "500px",
+            content: oTextArea,
+            beginButton: new sap.m.Button({
+              text: "Close",
+              press: function () {
+                this.pDialog.close();
+              }.bind(this)
+            })
+          });
+
         }
-
-        const oDialog = await this.pDialog;
-
-        const oTextArea = sap.ui.core.Fragment.byId(
-          DLG_ID,
-          "sourceCodeDialog_text0"
-        );
-        oTextArea.setValue(
-          sSourceCode || "No source code available."
-        );
-        oDialog.open();
-      },
-
-      async onCloseDialog() {
-        if (!this.pDialog) return;
-
-        const oDialog = await this.pDialog;
-        oDialog.close();
+        this.pDialog.open();
       }
     };
   }
